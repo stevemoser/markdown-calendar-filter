@@ -46,6 +46,17 @@ Navigate and filter your markdown notes based on dates found in their YAML front
     *   Easily create a new markdown note for the currently selected date in the calendar (or today's date if no date is selected).
     *   The new file will be pre-filled with basic frontmatter including the chosen date.
 
+## Assumptions
+
+This extension is built with the following assumptions in mind:
+
+*   **YAML Frontmatter:** Users primarily manage metadata, including dates, within YAML frontmatter blocks (`--- ... ---`) at the beginning of their markdown files.
+*   **Standard Date Formats:** While the extension attempts to parse common date formats, it assumes dates in frontmatter are reasonably standard Gregorian calendar dates (e.g., `YYYY-MM-DD`, ISO 8601, or JavaScript-parsable date strings/timestamps). Highly esoteric or custom date formats might not be recognized without configuration or future enhancements.
+*   **Workspace-Centric:** The extension operates on markdown files within the currently active VS Code workspace. It does not search outside this scope.
+*   **Performance for Typical Use:** The extension is designed to perform well for typical personal note-taking or small to medium-sized project repositories. Extremely large numbers of markdown files (tens of thousands) might reveal performance bottlenecks that would need to be addressed.
+*   **Focus on Date (not Time):** For calendar day selection, the primary matching logic ignores the time component of timestamps in frontmatter, focusing only on the Year, Month, and Day.
+*   **Single Date Field Priority:** If multiple configured date fields (e.g., `date`, `publishdate`) are present in a single file's frontmatter, the extension will use the first one it successfully parses according to the order in the `markdownCalendar.frontmatterDateFields` setting.
+
 ## Requirements
 
 *   VS Code version 1.80.0 or higher (adjust as per your `package.json`).

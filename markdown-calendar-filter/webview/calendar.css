@@ -1,3 +1,101 @@
+body {
+    font-family: var(--vscode-font-family);
+    color: var(--vscode-editor-foreground);
+    background-color: var(--vscode-sideBar-background);
+    padding: 5px;
+    user-select: none; /* Prevent text selection on clicks */
+}
+
+.calendar-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.calendar-controls button {
+    background-color: var(--vscode-button-background);
+    color: var(--vscode-button-foreground);
+    border: 1px solid var(--vscode-button-border, transparent);
+    padding: 2px 8px;
+    cursor: pointer;
+}
+.calendar-controls button:hover {
+    background-color: var(--vscode-button-hoverBackground);
+}
+
+#current-month-year {
+    font-weight: bold;
+}
+
+#calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    text-align: center;
+}
+
+.day-header, .day-cell {
+    padding: 5px 0;
+    border-radius: 3px;
+}
+
+.day-header {
+    font-weight: bold;
+    font-size: 0.9em;
+    color: var(--vscode-descriptionForeground);
+}
+
+.day-cell {
+    cursor: pointer;
+    border: 1px solid transparent; /* For consistent sizing */
+}
+
+.day-cell:hover {
+    background-color: var(--vscode-list-hoverBackground);
+}
+
+.day-cell.other-month {
+    color: var(--vscode-disabledForeground);
+    cursor: default;
+}
+.day-cell.other-month:hover {
+    background-color: transparent;
+}
+
+
+.day-cell.has-notes {
+    /* Visual cue for dates with notes - e.g., a dot or different background */
+    /* Using a pseudo-element for a dot */
+    position: relative;
+}
+.day-cell.has-notes::after {
+    content: '';
+    position: absolute;
+    bottom: 3px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 5px;
+    height: 5px;
+    background-color: var(--vscode-charts-blue, var(--vscode-terminal-ansiBlue)); /* Example color */
+    border-radius: 50%;
+}
+
+
+.day-cell.selected {
+    background-color: var(--vscode-list-activeSelectionBackground);
+    color: var(--vscode-list-activeSelectionForeground);
+    border-color: var(--vscode-focusBorder);
+}
+.day-cell.selected.has-notes::after {
+     background-color: var(--vscode-list-activeSelectionForeground);
+}
+
+
+.day-cell.today {
+    border: 1px solid var(--vscode-focusBorder);
+    font-weight: bold;
+}
 .day-cell.editor-highlight {
     /* Example: a different border or a subtle glow */
     box-shadow: 0 0 0 1px var(--vscode-editorSuggestWidget-selectedBackground, var(--vscode-list-focusOutline)); /* A subtle border */
