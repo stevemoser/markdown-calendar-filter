@@ -1,0 +1,10 @@
+.day-cell.editor-highlight {
+    /* Example: a different border or a subtle glow */
+    box-shadow: 0 0 0 1px var(--vscode-editorSuggestWidget-selectedBackground, var(--vscode-list-focusOutline)); /* A subtle border */
+    /* Or: background-color: var(--vscode-editor-selectionHighlightBackground); */
+}
+.day-cell.selected.editor-highlight {
+    /* If a cell is both selected and highlighted, 'selected' style usually takes precedence
+       or you might want a combined style. For now, selected wins. */
+    box-shadow: none; /* Remove the highlight shadow if also selected */
+}
