@@ -72,7 +72,7 @@ body {
 .day-cell.has-notes::after {
     content: '';
     position: absolute;
-    bottom: 3px;
+    bottom: 1px;
     left: 50%;
     transform: translateX(-50%);
     width: 5px;
