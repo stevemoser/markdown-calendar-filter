@@ -1,4 +1,7 @@
 # Markdown Calendar Filter for VS Code
+
+![VSCode Extension Tests](https://github.com/stevemoser/markdown-calendar-filter/actions/workflows/test.yml/badge.svg)
+
 Navigate and filter your markdown notes based on dates found in their YAML frontmatter. This extension provides a calendar in the sidebar, allowing you to quickly find notes, journal entries, or content associated with a specific day.
 
 -----------------------------
@@ -129,5 +132,37 @@ Contributions, issues, and feature requests are welcome! Please feel free to che
 ---
 
 **Enjoy using Markdown Calendar Filter!**
+
+## Development & Testing
+
+### Running Tests Locally
+
+To run the tests locally:
+
+```bash
+# Install dependencies
+npm install
+
+# Compile the extension and tests
+npm run compile
+npm run compile-tests
+
+# Run the tests
+npm test
+```
+
+### Continuous Integration
+
+This project uses GitHub Actions for continuous integration. Tests are automatically run on every pull request to the main branch. The workflow:
+
+1. Checks out the code
+2. Sets up Node.js
+3. Installs dependencies
+4. Lints the code
+5. Compiles the extension
+6. Runs tests
+7. Uploads test results
+
+To see the test results, check the "Actions" tab in the GitHub repository.
 
 ---
