@@ -1,0 +1,91 @@
+name: VSCode Extension Tests
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+    
+# Sets permissions of the GITHUB_TOKEN to allow updating the badge
+permissions:
+  checks: read
+  contents: write
+  pull-requests: write
+
+jobs:
+  test:
+    name: Test Extension
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        
+    - name: Install Dependencies
+      run: npm ci
+      
+    - name: Lint
+      run: npm run lint
+      
+    - name: Compile Extension
+      run: npm run compile
+      
+    - name: Compile Tests
+      run: npm run compile-tests
+      
+    - name: Create Test Results Directory
+      run: mkdir -p .vscode-test
+      
+    - name: Install Required Libraries
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libnss3 libxss1 libasound2 libxtst6 libgtk-3-0 xvfb
+      
+    - name: Run Tests
+      run: xvfb-run -a npm test
+      env:
+        CI: true
+      
+    - name: Upload Test Results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: test-results
+        path: .vscode-test/**/*.xml
+        
+    - name: Generate Test Badge
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      if: always()
+      with:
+        files: .vscode-test/**/*.xml
+        
+    - name: Update badge in README
+      if: github.ref == 'refs/heads/main' && success()
+      run: |
+        BADGE_URL="https://github.com/${{ github.repository }}/actions/workflows/test.yml/badge.svg"
+        README="README.md"
+        
+        # Check if README exists
+        if [ -f "$README" ]; then
+          # Look for existing badge pattern and replace it or add a new badge at the top
+          if grep -q "!\[VSCode Extension Tests\]" "$README"; then
+            sed -i "s|!\[VSCode Extension Tests\]([^)]*)|\![VSCode Extension Tests\]($BADGE_URL)|g" "$README"
+          else
+            # Add after the first heading line
+            sed -i "1 s/^/# Markdown Calendar Filter for VS Code\n\!\[VSCode Extension Tests\]($BADGE_URL)\n\n/" "$README"
+          fi
+          
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add "$README"
+          git commit -m "Update test badge in README [skip ci]" || true
+          git push

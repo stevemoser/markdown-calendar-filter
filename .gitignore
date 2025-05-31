@@ -4,9 +4,27 @@ node_modules/
 # Compiled output
 dist/
 build/
+out/
+*.js
+*.js.map
+!webpack.config.js
+!eslint.config.mjs
+!jest.config.js
+!webview/*.js
+*.vsix
+
+# Test output
+.vscode-test/
+coverage/
+test-results.xml
+*.cpuprofile
 
 # Logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
 
 # Environment files
 .env
@@ -15,11 +33,27 @@ build/
 
 # Temporary files
 *.tmp
+.temp/
+tmp/
 
 # IDE and editor files
 .idea/
-.vscode/
+.vscode/*
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 *.swp
+*.swo
+*~
+.history/
 
 # System files
 .DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Dev Container
+.devcontainer/
+
+*.code-workspace
