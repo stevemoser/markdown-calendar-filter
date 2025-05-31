@@ -1,6 +1,5 @@
 import * as assert from 'assert';
 import * as vscode from 'vscode';
-import * as sinon from 'sinon';
 import { FileTreeViewProvider, FileTreeItem } from '../FileTreeViewProvider';
 
 suite('FileTreeViewProvider Tests', () => {

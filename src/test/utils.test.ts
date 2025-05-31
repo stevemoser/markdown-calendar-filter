@@ -40,7 +40,7 @@ suite('Utility Function Tests', () => {
 
     // Test for getNotesByDate - note that this will be skipped in CI environments
     // because it requires a real filesystem and workspace
-    (process.env.CI ? test.skip : test)('getNotesByDate should find markdown files with dates', async function () {
+    (process.env.CI === 'true' ? test.skip : test)('getNotesByDate should find markdown files with dates', async function () {
         this.timeout(10000); // Give it enough time for filesystem operations
 
         // Create a test workspace folder
